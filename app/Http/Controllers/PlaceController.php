@@ -40,7 +40,7 @@ class PlaceController extends Controller
      */
     public function show(Place $place)
     {
-        return ApiResponse::send(true, new PlacesResources($place), 200);
+        return ApiResponse::send(true, new PlacesResource($place), 200);
     }
 
     /**
@@ -65,6 +65,7 @@ class PlaceController extends Controller
      */
     public function destroy(Place $place)
     {
-        $place->destroy();
+        $place->destroy($place->id);
+        return ApiResponse::send(true, "Deleted successfuly!", 200);
     }
 }

@@ -10,6 +10,11 @@ class Place extends Model
     /** @use HasFactory<\Database\Factories\PlaceFactory> */
     use HasFactory;
 
+    protected $fillable = [
+        "number",
+        "notes"
+    ];
+
     public function items(){
         return $this->belongsToMany(Items::class, 'item_place');
     }
