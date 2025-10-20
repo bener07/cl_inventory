@@ -6,6 +6,9 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Requests\LoginRequest;
 use App\Models\User;
+use App\ApiResponse;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Resources\UserResource;
 
 class UserController extends Controller
 {
@@ -14,11 +17,21 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        return new UserResource($request->user());
     }
 
     public function login(LoginRequest $request){
+        $credentials = [
+            "email" => $request->email,
+            "password" => $request->password
+        ];
+        if(!Auth::attempt($credentials)){
+            return ApiResponse::send(false, "403 Credentials do not match our records", 403);
+        }
+        $user = Auth::user();
+        $token = $user->issueToken();
 
+        return ApiResponse::send(true, "Bearer ".$token, 200);
     }
 
     /**

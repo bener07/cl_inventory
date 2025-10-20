@@ -11,7 +11,7 @@ class UpdateItemsRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,12 @@ class UpdateItemsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+#            "id" => "required|exists:items",
+            "name" => "string|nullable",
+            "description" => "string|nullable",
+            "notes" => "string|nullable",
+            "quantity" => "integer|nullable",
+            "user_id" => "exists:users,id",
         ];
     }
 }

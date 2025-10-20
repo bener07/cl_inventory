@@ -5,6 +5,9 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\ApiResponse;
+
 
 return Application::configure(basePath: dirname(__DIR__))
     ->withRouting(
@@ -14,14 +17,13 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        $middleware->group('api', [
-            \App\Http\Middleware\ApiAuthentication::class,
-        ]);
 
         $middleware->alias([
-            'auth' => \App\Http\Middleware\ApiAuthentication::class,
+            'api.auth' => \App\Http\Middleware\ApiAuthenticate::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
-        //
+         $exceptions->render(function (ModelNotFoundException|NotFoundHttpException $e, Request $request) {
+            return ApiResponse::send(false, '404 Not found', 404);
+        });
     })->create();

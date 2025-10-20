@@ -12,10 +12,16 @@ class Items extends Pivot
         "name",
         "quantity",
         "notes",
-        "description"
+        "description",
+        "user_id",
     ];
 
     public function inputByUser(){
-        $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    public function places(){
+        return $this->belongsToMany(Place::class, 'item_place')
+                ->withTimestamps();
     }
 }
