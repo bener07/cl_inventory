@@ -28,8 +28,6 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        $request->user()->issueToken();
-
         return redirect()->intended(route('dashboard', absolute: false));
     }
 

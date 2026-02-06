@@ -18,9 +18,13 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware): void {
 
-        $middleware->alias([
-            'api.auth' => \App\Http\Middleware\ApiAuthenticate::class,
+        $middleware->api(prepend:[
+            \Laravel\Sanctum\Http\Middleware\EnsureFrontendRequestsAreStateful::class,
         ]);
+
+        //$middleware->alias([
+        //    'api.auth' => \App\Http\Middleware\ApiAuthenticate::class,
+        //]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
          $exceptions->render(function (ModelNotFoundException|NotFoundHttpException $e, Request $request) {

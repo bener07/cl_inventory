@@ -16,6 +16,6 @@ class Place extends Model
     ];
 
     public function items(){
-        return $this->belongsToMany(Items::class, 'item_place');
+        return $this->belongsToMany(Items::class, 'item_place', 'item_id', 'place_id');
     }
 }

@@ -14,11 +14,15 @@ class ApiResponse
         //
     }
 
-    public static function send(bool $success, $message, int $code){
+    public static function send(bool $success, $message, int $code, $datatables=false){
+        // se for um pedido vindo do frontend, muito provavelmente é feito em datatables
+        if($datatables){
+            return response()->json($message);
+        }
         return response()->json([
             "success" => $success,
             "content" => $message,
             "code" => $code,
-        ], 401);
+        ], 200);
     }
 }

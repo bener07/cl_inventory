@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string("name");
             $table->integer("quantity");
-            $table->string("notes");
+            $table->string("notes")->nullable();
             $table->string("description")->nullable();
             $table->foreignId('user_id')->references('id')->on('users')->onDelete("cascade");
             $table->timestamps();

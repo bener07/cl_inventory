@@ -6,16 +6,18 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ItemsController;
 use App\Http\Controllers\PlaceController;
+use App\Http\Controllers\UsersController;
 
 Route::post("/login", [UserController::class, 'login']);
 
-Route::middleware(["api.auth"])->group(function () {
+Route::middleware(["auth:sanctum"])->group(function () {
     Route::get("/user", function (Request $request){
         return $request->user()->id;
     });
 
     Route::apiResource('/items', ItemsController::class);
     Route::apiResource('/places', PlaceController::class);
+    Route::apiResource('/users', UsersController::class);
 });
 
 Route::fallback(function(){

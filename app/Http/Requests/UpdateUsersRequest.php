@@ -2,14 +2,16 @@
 
 namespace App\Http\Requests;
 
-class StoreItemsRequest extends ApiRequest
+use Illuminate\Foundation\Http\FormRequest;
+
+class UpdateUsersRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -20,12 +22,7 @@ class StoreItemsRequest extends ApiRequest
     public function rules(): array
     {
         return [
-            "name" => "required|string",
-            "quantity" => "required|integer",
-            "place_number" => "required|exists:places,number",
-            "notes" => "string",
-            "description" => "string",
-            "image" => "image"
+            //
         ];
     }
 }

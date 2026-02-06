@@ -20,7 +20,8 @@ class ItemsResource extends JsonResource
             "quantity" => $this->quantity,
             "notes" => $this->notes,
             "description" => $this->description,
-            "inputed_by" => $this->inputByUser
+            "inputed_by" => $this->inputByUser,
+            "place" => $this->places,
         ];
     }
 }

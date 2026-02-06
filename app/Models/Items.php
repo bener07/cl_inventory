@@ -8,6 +8,10 @@ class Items extends Pivot
 {
     protected $table = "items";
 
+    protected $primaryKey = 'id';
+    public $incrementing = true;
+    protected $keyType = 'int';
+
     protected $fillable = [
         "name",
         "quantity",
@@ -21,7 +25,7 @@ class Items extends Pivot
     }
 
     public function places(){
-        return $this->belongsToMany(Place::class, 'item_place')
+        return $this->belongsToMany(Place::class, 'item_place', 'item_id', 'place_id')
                 ->withTimestamps();
     }
 }

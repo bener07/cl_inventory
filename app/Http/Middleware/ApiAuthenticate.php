@@ -29,5 +29,6 @@ class ApiAuthenticate extends Middleware
         if (!Auth::guard('sanctum')->check()){
             return abort(ApiResponse::send(false, "401 Unauthorized Access", 401));
         }
+        return parent::unauthenticated($request, $guards);
     }
 }
